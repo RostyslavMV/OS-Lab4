@@ -41,4 +41,26 @@ public class Page {
     public boolean[] getR() {
         return R;
     }
+
+    // this should return 2 if R is 001..., 1 if R is 01... and so on
+    public int getNumberOfLeftZeroesInR() {
+        int result = 0;
+        for (int i = 0; i < R.length; i++) {
+            if (R[i]) {
+                break;
+            }
+            result++;
+        }
+        return result;
+    }
+
+    public int getNumberOfOnesInR() {
+        int result = 0;
+        for (int i = 0; i < R.length; i++) {
+            if (R[i]) {
+                result++;
+            }
+        }
+        return result;
+    }
 }

@@ -50,32 +50,58 @@ public class PageFault {
      *                       simulator, and allows one to modify the current display.
      */
     public static void replacePage(Vector mem, int virtPageNum, int replacePageNum, ControlPanel controlPanel) {
-        int count = 0;
-        int oldestPage = -1;
-        int oldestTime = 0;
-        int firstPage = -1;
-        int map_count = 0;
-        boolean mapped = false;
+//        int count = 0;
+//        int oldestPage = -1;
+//        int oldestTime = 0;
+//        int firstPage = -1;
+//        int map_count = 0;
+//        boolean mapped = false;
+//
+//        while (!(mapped) || count != virtPageNum) {
+//            Page page = (Page) mem.elementAt(count);
+//            if (page.physical != -1) {
+//                if (firstPage == -1) {
+//                    firstPage = count;
+//                }
+//                if (page.inMemTime > oldestTime) {
+//                    oldestTime = page.inMemTime;
+//                    oldestPage = count;
+//                    mapped = true;
+//                }
+//            }
+//            count++;
+//            if (count == virtPageNum) {
+//                mapped = true;
+//            }
+//        }
+//        if (oldestPage == -1) {
+//            oldestPage = firstPage;
+//        }
 
-        while (!(mapped) || count != virtPageNum) {
-            Page page = (Page) mem.elementAt(count);
-            if (page.physical != -1) {
-                if (firstPage == -1) {
-                    firstPage = count;
+        int oldestPage = 0;
+        int currentPageLeftZeroesNumber;
+        int maxPageLeftZeroesNumber = -1;
+        int numberOfOnesInCurrentOldest;
+        for (int i = 0; i < mem.size(); i++) {
+            Page page = (Page) mem.elementAt(i);
+            if (page.physical!=-1) {
+                currentPageLeftZeroesNumber = page.getNumberOfLeftZeroesInR();
+                if (currentPageLeftZeroesNumber == page.getR().length) {
+                    oldestPage = i;
+                    break;
                 }
-                if (page.inMemTime > oldestTime) {
-                    oldestTime = page.inMemTime;
-                    oldestPage = count;
-                    mapped = true;
+                if (currentPageLeftZeroesNumber == maxPageLeftZeroesNumber) {
+                    Page currentOldest = (Page) mem.elementAt(oldestPage);
+                    numberOfOnesInCurrentOldest = currentOldest.getNumberOfOnesInR();
+                    if (page.getNumberOfOnesInR() < numberOfOnesInCurrentOldest) {
+                        oldestPage = i;
+                    }
+                }
+                if (currentPageLeftZeroesNumber > maxPageLeftZeroesNumber) {
+                    maxPageLeftZeroesNumber = currentPageLeftZeroesNumber;
+                    oldestPage = i;
                 }
             }
-            count++;
-            if (count == virtPageNum) {
-                mapped = true;
-            }
-        }
-        if (oldestPage == -1) {
-            oldestPage = firstPage;
         }
         Page page = (Page) mem.elementAt(oldestPage);
         Page nextpage = (Page) mem.elementAt(replacePageNum);
@@ -88,9 +114,5 @@ public class PageFault {
         page.addR(false);
         page.M = 0;
         page.physical = -1;
-
-//        while (!mapped || count != virtPageNum) {
-//
-//        }
     }
 }
