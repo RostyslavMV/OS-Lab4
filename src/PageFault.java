@@ -103,14 +103,14 @@ public class PageFault {
                     oldestPage = i;
                     break;
                 }
-                if (currentPageLeftZeroesNumber == maxPageLeftZeroesNumber) {
+                else if (currentPageLeftZeroesNumber == maxPageLeftZeroesNumber) {
                     Page currentOldest = (Page) mem.elementAt(oldestPage);
                     numberOfOnesInCurrentOldest = currentOldest.getNumberOfOnesInR();
                     if (page.getNumberOfOnesInR() < numberOfOnesInCurrentOldest) {
                         oldestPage = i;
                     }
                 }
-                if (currentPageLeftZeroesNumber > maxPageLeftZeroesNumber) {
+                else if (currentPageLeftZeroesNumber > maxPageLeftZeroesNumber) {
                     maxPageLeftZeroesNumber = currentPageLeftZeroesNumber;
                     oldestPage = i;
                 }
