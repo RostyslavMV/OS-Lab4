@@ -84,7 +84,8 @@ public class PageFault {
         controlPanel.addPhysicalPage(nextpage.physical, replacePageNum);
         page.inMemTime = 0;
         page.lastTouchTime = 0;
-        page.R = 0;
+        //page.R = 0;
+        page.addR(false);
         page.M = 0;
         page.physical = -1;
 

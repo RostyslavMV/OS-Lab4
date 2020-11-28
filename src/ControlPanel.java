@@ -947,7 +947,7 @@ public class ControlPanel extends Frame
   {
     virtualPageValueLabel.setText( Integer.toString( page.id ) );
     physicalPageValueLabel.setText( Integer.toString( page.physical ) );
-    RValueLabel.setText( Integer.toString( page.R ) );
+    RValueLabel.setText( page.getStringR() );
     MValueLabel.setText( Integer.toString( page.M ) );
     inMemTimeValueLabel.setText( Integer.toString( page.inMemTime ) );
     lastTouchTimeValueLabel.setText( Integer.toString( page.lastTouchTime ) );
