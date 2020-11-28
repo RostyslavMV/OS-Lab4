@@ -19,7 +19,7 @@ public class Kernel extends Thread {
     private boolean doStdoutLog = false;
     private boolean doFileLog = false;
     public int runs;
-    public int runcycles;
+    public int  runcycles;
     public long block = (int) Math.pow(2, 12);
     public static byte addressradix = 10;
 
@@ -308,12 +308,16 @@ public class Kernel extends Thread {
         step();
         while (runs != runcycles) {
             try {
-                Thread.sleep(100);
+                Thread.sleep(10);
             } catch (InterruptedException e) {
                 /* Do nothing */
             }
             step();
         }
+        printLogFile("Number of replacements: " + PageFault.getNumberOfReplacements());
+        printLogFile("Total replacements time: " + PageFault.getTime() +" ms");
+        printLogFile("Average time per replacement: " + (double) PageFault.getTime()
+                / PageFault.getNumberOfReplacements() + " ms");
     }
 
     public void step() {

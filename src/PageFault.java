@@ -49,6 +49,19 @@ public class PageFault {
      * @param controlPanel   represents the graphical element of the
      *                       simulator, and allows one to modify the current display.
      */
+
+    private static long time = 0;
+
+    private static int numberOfReplacements = 0;
+
+    public static long getTime() {
+        return time;
+    }
+
+    public static int getNumberOfReplacements() {
+        return numberOfReplacements;
+    }
+
     public static void replacePage(Vector mem, int virtPageNum, int replacePageNum, ControlPanel controlPanel) {
 //        int count = 0;
 //        int oldestPage = -1;
@@ -77,7 +90,7 @@ public class PageFault {
 //        if (oldestPage == -1) {
 //            oldestPage = firstPage;
 //        }
-
+        long start = System.currentTimeMillis();
         int oldestPage = 0;
         int currentPageLeftZeroesNumber;
         int maxPageLeftZeroesNumber = -1;
@@ -114,5 +127,7 @@ public class PageFault {
         page.addR(false);
         page.M = 0;
         page.physical = -1;
+        time += System.currentTimeMillis() - start;
+        numberOfReplacements++;
     }
 }
