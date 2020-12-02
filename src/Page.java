@@ -42,25 +42,25 @@ public class Page {
         return R;
     }
 
-    // this should return 2 if R is 001..., 1 if R is 01... and so on
-    public int getNumberOfLeftZeroesInR() {
-        int result = 0;
+    public boolean isRSmallerThan(boolean[] otherR) {
         for (int i = 0; i < R.length; i++) {
-            if (R[i]) {
-                break;
+            if (!R[i] && otherR[i]) {
+                return true;
             }
-            result++;
+            if (R[i] && !otherR[i]) {
+                return false;
+            }
         }
-        return result;
+
+        return false;
     }
 
-    public int getNumberOfOnesInR() {
-        int result = 0;
-        for (int i = 0; i < R.length; i++) {
-            if (R[i]) {
-                result++;
+    public boolean isRZero() {
+        for (boolean b : R) {
+            if (b) {
+                return false;
             }
         }
-        return result;
+        return true;
     }
 }

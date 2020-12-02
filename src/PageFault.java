@@ -40,14 +40,14 @@ public class PageFault {
      * the page which has just been removed from memory.
      *
      * @param mem            is the vector which contains the contents of the pages
-     *                       in memory being simulated.  mem should be searched to find the
-     *                       proper page to remove, and modified to reflect any changes.
+     * in memory being simulated.  mem should be searched to find the
+     * proper page to remove, and modified to reflect any changes.
      * @param virtPageNum    is the number of virtual pages in the
-     *                       simulator (set in Kernel.java).
+     * simulator (set in Kernel.java).
      * @param replacePageNum is the requested page which caused the
-     *                       page fault.
+     * page fault.
      * @param controlPanel   represents the graphical element of the
-     *                       simulator, and allows one to modify the current display.
+     * simulator, and allows one to modify the current display.
      */
 
     private static long time = 0;
@@ -90,29 +90,24 @@ public class PageFault {
 //        if (oldestPage == -1) {
 //            oldestPage = firstPage;
 //        }
+
+        // виправити порівняння масиву R
+        // з'ясувати про біт R
+        // реалізувати тік
+        // без модифікації по тіку з яким алгоритмом можна було б асоціювати даний
         long start = System.currentTimeMillis();
         int oldestPage = 0;
-        int currentPageLeftZeroesNumber;
-        int maxPageLeftZeroesNumber = -1;
-        int numberOfOnesInCurrentOldest;
+        boolean[] currentSmallestR = new boolean[8];
+        Arrays.fill(currentSmallestR, true);
         for (int i = 0; i < mem.size(); i++) {
             Page page = (Page) mem.elementAt(i);
-            if (page.physical!=-1) {
-                currentPageLeftZeroesNumber = page.getNumberOfLeftZeroesInR();
-                if (currentPageLeftZeroesNumber == page.getR().length) {
+            if (page.physical != -1) {
+                if (page.isRSmallerThan(currentSmallestR)) {
+                    currentSmallestR = page.getR();
                     oldestPage = i;
-                    break;
-                }
-                else if (currentPageLeftZeroesNumber == maxPageLeftZeroesNumber) {
-                    Page currentOldest = (Page) mem.elementAt(oldestPage);
-                    numberOfOnesInCurrentOldest = currentOldest.getNumberOfOnesInR();
-                    if (page.getNumberOfOnesInR() < numberOfOnesInCurrentOldest) {
-                        oldestPage = i;
+                    if (page.isRZero()) {
+                        break;
                     }
-                }
-                else if (currentPageLeftZeroesNumber > maxPageLeftZeroesNumber) {
-                    maxPageLeftZeroesNumber = currentPageLeftZeroesNumber;
-                    oldestPage = i;
                 }
             }
         }
