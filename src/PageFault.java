@@ -91,10 +91,6 @@ public class PageFault {
 //            oldestPage = firstPage;
 //        }
 
-        // виправити порівняння масиву R
-        // з'ясувати про біт R
-        // реалізувати тік
-        // без модифікації по тіку з яким алгоритмом можна було б асоціювати даний
         long start = System.currentTimeMillis();
         int oldestPage = 0;
         boolean[] currentSmallestR = new boolean[8];
@@ -119,7 +115,7 @@ public class PageFault {
         page.inMemTime = 0;
         page.lastTouchTime = 0;
         //page.R = 0;
-        page.addR(false);
+        //page.addR(false);
         page.M = 0;
         page.physical = -1;
         time += System.currentTimeMillis() - start;

@@ -24,16 +24,14 @@ public class Page {
     }
 
     public void addR(boolean value) {
-        for (int i = R.length - 1; i > 0; i--) {
-            R[i] = R[i - 1];
-        }
+        if (R.length - 1 >= 0) System.arraycopy(R, 0, R, 1, R.length - 1);
         R[0] = value;
     }
 
     public String getStringR() {
         StringBuilder result = new StringBuilder();
-        for (int i = 0; i < R.length; i++) {
-            result.append(R[i] ? "1" : "0");
+        for (boolean b : R) {
+            result.append(b ? "1" : "0");
         }
         return result.toString();
     }
@@ -47,7 +45,7 @@ public class Page {
             if (!R[i] && otherR[i]) {
                 return true;
             }
-            if (R[i] && !otherR[i]) {
+            else if (R[i] && !otherR[i]) {
                 return false;
             }
         }
